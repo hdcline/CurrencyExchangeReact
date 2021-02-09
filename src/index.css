@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#base-rates {
+  font-size: 30px;
+  text-align-last: center;
+}
+
+.live-rates {
+  font-size: 30px;
+}
