@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import ExchangeRates from './Exchange-Rates';
 import BaseSelector from './Base-Selector';
 import Home from './Home';
+import CurrencyConverter from './Currency-Converter';
 
 
 /*const Home = () => {
@@ -35,14 +36,14 @@ const App = () => {
         <Link to="/" className="nav-link">Live Rates</Link>
       </li>
       <li class="nav-item active">
-        <Link to="/contact" className="nav-link">Currency Converter</Link>
+        <Link to="/currency-converter" className="nav-link">Currency Converter</Link>
       </li>
     </ul>
 
 </nav>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/contact" component={Contact} />
+        <Route path="/currency-converter" component={CurrencyConverter} />
         <Route component={NotFound} />
       </Switch>
     </Router>

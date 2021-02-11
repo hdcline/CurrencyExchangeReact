@@ -68,9 +68,8 @@ class Home extends React.Component {
   }
 
 
-
   componentDidMount () {
-    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=USD`)
+    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.option}`)
       .then(checkStatus)
       .then(json)
       .then((data) => {
@@ -103,8 +102,9 @@ class Home extends React.Component {
     return (
       <div className="container">
         <div className="row pt-5 justify-content-center">
-          <BaseSelector option='USD' onChange={this.handleChange}/>
-
+          <div class="col-4 py-5">
+            <BaseSelector onChange={this.handleChange} option='USD' id="base-rates"/>
+          </div>
         </div>
         <div className="row pt-5 justify-content-center">
           <ExchangeRates rates={this.state.rates} base={this.state.option}/>
