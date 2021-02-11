@@ -27,9 +27,6 @@ const App = () => {
       <li class="nav-item active">
         <Link to="/currency-converter" className="nav-link">Currency Converter</Link>
       </li>
-      <li class="nav-item active">
-        <Link to="/currency-converter" className="nav-link">Currency Converter</Link>
-      </li>
     </ul>
 
 </nav>
