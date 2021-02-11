@@ -7,17 +7,6 @@ import Home from './Home';
 import CurrencyConverter from './Currency-Converter';
 
 
-/*const Home = () => {
-  return <h2>Home</h2>;
-}*/
-
-const About = () => {
-  return <h2>About</h2>;
-}
-
-const Contact = () => {
-  return <h2>Contact</h2>;
-}
 
 const NotFound = () => {
   return <h2>404 Not Found</h2>;
