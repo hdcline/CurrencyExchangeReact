@@ -20,3 +20,68 @@ code {
 .live-rates {
   font-size: 30px;
 }
+
+.label {
+  font-size: 30px;
+}
+
+#amount {
+  font-size: 30px;
+}
+
+#to {
+  font-size: 30px;
+}
+
+#from {
+  font-size: 30px;
+}
+
+#converted-amount {
+  font-size: 45px;
+}
+
+#equal {
+  font-size: 80px;
+}
+
+#currency-col-xs {
+  display: none;
+}
+
+#equals-word {
+  display: none;
+}
+
+
+@media (max-width: 768px) {
+  #base-rates {
+    font-size: 22px;
+    text-align-last: center;
+  }
+
+  .base {
+    font-size: 30px;
+  }
+
+  .live-rates {
+    font-size: 15px;
+  }
+
+  #currency-col-lg {
+    display: none;
+  }
+
+  #currency-col-xs {
+    display: flex;
+  }
+
+  #equals-sym {
+    display: none;
+  }
+
+  #equals-word {
+    display: block;
+    font-size: 45px;
+  }
+}

@@ -64,8 +64,8 @@ class Amount extends React.Component {
 
     return (
       <div>
-      <label for="amount">Amount</label>
-      <input type="number" id="amount" name="amount" min="1" defaultValue="1" onChange={this.props.onChange}/>
+      <label class="label" for="amount">Amount:</label>
+      <input class="form-control" type="number" id="amount" name="amount" min="1" defaultValue="1" onChange={this.props.onChange}/>
       </div>
     )
   }
