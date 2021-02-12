@@ -17,35 +17,34 @@ class Amount extends React.Component {
     //this.setState({ option: event.target.value });
     console.log('helloworld');
     fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=USD`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
+    .then(checkStatus)
+    .then(json)
+    .then((data) => {
 
-          console.log(data);
-          this.setState({ rates: data, error: '' });
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
-      });
-
+        console.log(data);
+        this.setState({ rates: data, error: '' });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+      console.log(error);
+    });
   }
 
 
-    componentDidMount () {
+  componentDidMount () {
       //document.getElementById('amount').defaultValue = "1";
-      console.log(this.state.option);
+    console.log(this.state.option);
     fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=USD&symbols=GBP,AUD`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        console.log(data.rates);
-        this.setState({ rates: data, error: '' });
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
-      });
+    .then(checkStatus)
+    .then(json)
+    .then((data) => {
+      console.log(data.rates);
+      this.setState({ rates: data, error: '' });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+      console.log(error);
+    });
   }
 
 
@@ -64,8 +63,8 @@ class Amount extends React.Component {
 
     return (
       <div>
-      <label class="label" for="amount">Amount:</label>
-      <input class="form-control" type="number" id="amount" name="amount" min="1" defaultValue="1" onChange={this.props.onChange}/>
+        <label class="label" for="amount">Amount:</label>
+        <input class="form-control" type="number" id="amount" name="amount" min="1" defaultValue="1" onChange={this.props.onChange}/>
       </div>
     )
   }

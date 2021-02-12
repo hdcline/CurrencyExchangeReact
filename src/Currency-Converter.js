@@ -1,6 +1,5 @@
 import React from 'react';
 import { json, checkStatus } from './utils';
-import ExchangeRates from './Exchange-Rates';
 import BaseSelector from './Base-Selector';
 import Amount from './Amount';
 
@@ -54,62 +53,6 @@ class CurrencyConverter extends React.Component {
   handleChangeFromCurrency(event) {
     this.setState({ symbolFrom: event.target.value});
     fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${event.target.value}&symbols=${this.state.symbolTo}`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        console.log(data.rates);
-        this.setState({ rates: data, error: '' });
-        console.log(data.rates[this.state.symbolTo]);
-        this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
-      });
-
-  }
-
-  handleChangeToCurrency(event) {
-    this.setState({ symbolTo: event.target.value});
-    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.symbolFrom}&symbols=${event.target.value}`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        console.log(data.rates);
-        this.setState({ rates: data, error: '' });
-        console.log(data.rates[this.state.symbolTo]);
-        this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
-      });
-  }
-
-  handleCurrencySwitch(event) {
-    let from = this.state.symbolFrom;
-    let to = this.state.symbolTo;
-    this.setState({ symbolFrom: to, symbolTo: from});
-
-    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${to}&symbols=${from}`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        console.log(data.rates);
-        this.setState({ rates: data, error: '' });
-        console.log(data.rates[this.state.symbolTo]);
-        this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
-      });
-  }
-
-
-  componentDidMount () {
-    console.log(this.state.option);
-  fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.symbolFrom}&symbols=${this.state.symbolTo}`)
     .then(checkStatus)
     .then(json)
     .then((data) => {
@@ -122,7 +65,61 @@ class CurrencyConverter extends React.Component {
       this.setState({ error: error.message });
       console.log(error);
     });
+  }
 
+  handleChangeToCurrency(event) {
+    this.setState({ symbolTo: event.target.value});
+    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.symbolFrom}&symbols=${event.target.value}`)
+    .then(checkStatus)
+    .then(json)
+    .then((data) => {
+      console.log(data.rates);
+      this.setState({ rates: data, error: '' });
+      console.log(data.rates[this.state.symbolTo]);
+      this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+      console.log(error);
+    });
+  }
+
+  handleCurrencySwitch(event) {
+    let from = this.state.symbolFrom;
+    let to = this.state.symbolTo;
+    this.setState({ symbolFrom: to, symbolTo: from});
+
+    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${to}&symbols=${from}`)
+    .then(checkStatus)
+    .then(json)
+    .then((data) => {
+      console.log(data.rates);
+      this.setState({ rates: data, error: '' });
+      console.log(data.rates[this.state.symbolTo]);
+      this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+      console.log(error);
+    });
+  }
+
+
+  componentDidMount () {
+    console.log(this.state.option);
+    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.symbolFrom}&symbols=${this.state.symbolTo}`)
+    .then(checkStatus)
+    .then(json)
+    .then((data) => {
+      console.log(data.rates);
+      this.setState({ rates: data, error: '' });
+      console.log(data.rates[this.state.symbolTo]);
+      this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+      console.log(error);
+    });
   }
 
 
@@ -144,16 +141,15 @@ class CurrencyConverter extends React.Component {
     return (
       <div>
         <div className="container align-items-center mt-5">
-
           <div className="row pt-5 justify-content-start">
             <div class="col-sm-4">
               <Amount onChange={this.handleChangeAmount}/>
             </div>
-        </div>
+          </div>
 
         <div className="row pt-5 justify-content-start">
           <div class="col-sm-4 py-2">
-          <label class="label" for="from">From:</label>
+            <label class="label" for="from">From:</label>
             <BaseSelector id="from" onChange={this.handleChangeFromCurrency} option={this.state.symbolFrom}/>
           </div>
         </div>
@@ -170,16 +166,14 @@ class CurrencyConverter extends React.Component {
 
         <div className="row pt-5 justify-content-start">
           <div class="col-sm-4 py-2">
-          <label class="label" for="to">To:</label>
+            <label class="label" for="to">To:</label>
             <BaseSelector id="to" onChange={this.handleChangeToCurrency} option={this.state.symbolTo}/>
           </div>
           <div class="col-12 mt-4" id="equals-word">Equals:</div>
           <div class="col-12 pb-5" id="currency-col-xs">
-
             <ConvertedAmount convertedAmount={conversion(this.state.amount, this.state.rateTo)}/>
           </div>
         </div>
-
       </div>
     </div>
     )
