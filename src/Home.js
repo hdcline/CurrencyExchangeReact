@@ -102,11 +102,19 @@ class Home extends React.Component {
     return (
       <div className="container">
         <div className="row pt-5 justify-content-center">
+
           <div class="col-4 py-4">
             <BaseSelector onChange={this.handleChange} option='USD' id="base-rates"/>
           </div>
         </div>
         <div className="row pt-3 justify-content-center mb-5 pb-5">
+
+          <div class="col-4 py-5">
+            <BaseSelector onChange={this.handleChange} option='USD' id="base-rates"/>
+          </div>
+        </div>
+        <div className="row pt-5 justify-content-center">
+
           <ExchangeRates rates={this.state.rates} base={this.state.option}/>
         </div>
       </div>

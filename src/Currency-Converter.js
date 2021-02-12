@@ -11,7 +11,11 @@ const ConvertedAmount = (props) => {
     convertedAmount
   } = props;
   return (
+
     <p class="text-success text-center" id="converted-amount"> <span id="equals-sym"><strong>=</strong></span> {convertedAmount}</p>
+
+    <h2>{convertedAmount}</h2>
+
   )
 }
 
@@ -22,7 +26,11 @@ const SwitchCurrencyButton = (props) => {
     onClick
   } = props;
   return (
+
     <button type="button" class="btn btn-primary btn-block" onClick={onClick}>Switch</button>
+
+    <button type="button" class="btn btn-primary" onClick={onClick}>Switch</button>
+
   )
 }
 
@@ -142,6 +150,7 @@ class CurrencyConverter extends React.Component {
     console.log(this.state.amount);
 
     return (
+
       <div>
         <div className="container align-items-center mt-5">
 
@@ -182,6 +191,31 @@ class CurrencyConverter extends React.Component {
 
       </div>
     </div>
+
+      <div className="container">
+        <div className="row pt-5 justify-content-center">
+          <div class="col-4 py-5">
+            <Amount onChange={this.handleChangeAmount}/>
+          </div>
+      </div>
+      <div className="row pt-5 justify-content-center">
+        <div class="col-sm-4 py-5">
+          <BaseSelector onChange={this.handleChangeFromCurrency} option={this.state.symbolFrom}/>
+        </div>
+        <div class="col-sm-4 py-5">
+          <SwitchCurrencyButton onClick={this.handleCurrencySwitch}/>
+        </div>
+        <div class="col-sm-4 py-5">
+          <BaseSelector onChange={this.handleChangeToCurrency} option={this.state.symbolTo}/>
+        </div>
+        <div class="col-sm-4 py-5">
+          <ConvertedAmount convertedAmount={conversion(this.state.amount, this.state.rateTo)}/>
+        </div>
+      </div>
+
+
+      </div>
+
     )
   }
 }
