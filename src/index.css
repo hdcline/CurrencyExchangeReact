@@ -53,6 +53,18 @@ code {
   display: none;
 }
 
+#custom-footer {
+  border-top: solid 2px black;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
+
+#custom-footer a i {
+  color: white;
+}
 
 @media (max-width: 768px) {
   #base-rates {

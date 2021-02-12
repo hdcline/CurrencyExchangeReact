@@ -106,7 +106,7 @@ class Home extends React.Component {
             <BaseSelector onChange={this.handleChange} option='USD' id="base-rates"/>
           </div>
         </div>
-        <div className="row pt-3 justify-content-center">
+        <div className="row pt-3 justify-content-center mb-5 pb-5">
           <ExchangeRates rates={this.state.rates} base={this.state.option}/>
         </div>
       </div>
