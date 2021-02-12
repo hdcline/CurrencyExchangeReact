@@ -11,3 +11,89 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#base-rates {
+  font-size: 30px;
+  text-align-last: center;
+}
+
+.live-rates {
+  font-size: 30px;
+}
+
+.label {
+  font-size: 30px;
+}
+
+#amount {
+  font-size: 30px;
+}
+
+#to {
+  font-size: 30px;
+}
+
+#from {
+  font-size: 30px;
+}
+
+#converted-amount {
+  font-size: 45px;
+}
+
+#equal {
+  font-size: 80px;
+}
+
+#currency-col-xs {
+  display: none;
+}
+
+#equals-word {
+  display: none;
+}
+
+#custom-footer {
+  border-top: solid 2px black;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
+
+#custom-footer a i {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  #base-rates {
+    font-size: 22px;
+    text-align-last: center;
+  }
+
+  .base {
+    font-size: 30px;
+  }
+
+  .live-rates {
+    font-size: 15px;
+  }
+
+  #currency-col-lg {
+    display: none;
+  }
+
+  #currency-col-xs {
+    display: flex;
+  }
+
+  #equals-sym {
+    display: none;
+  }
+
+  #equals-word {
+    display: block;
+    font-size: 45px;
+  }
+}

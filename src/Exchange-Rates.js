@@ -41,16 +41,27 @@ class ExchangeRates extends React.Component {
 
     return (
 
+          <div className="col-7 col-sm-4 mx-auto px-auto">
+            <h1 class="base text-primary">{base}</h1>
+            <ul className="list-unstyled live-rates">
+              <li>
+                <p class="text-secondary">Date: {date}</p>
+
           <div className="col-4">
             <h1 class="">{base}</h1>
             <ul className="list-unstyled live-rates">
               <li>
                 <p class="">Date: {date}</p>
+
               </li>
               <li>
                 {
                   Object.keys(rates).map((key, index) => (
+
+                    <p key={index}><span class="text-primary">{index+1}</span>- {key}: {rates[key]}</p>
+
                     <p key={index}>{index+1}- {key}: {rates[key]}</p>
+
                   ))
                 }
               </li>
