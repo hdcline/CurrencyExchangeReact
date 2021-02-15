@@ -1,4 +1,5 @@
 import React from 'react';
+import Chart from 'chart.js';
 import { json, checkStatus } from './utils';
 import BaseSelector from './Base-Selector';
 import Amount from './Amount';
@@ -30,6 +31,9 @@ class CurrencyConverter extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const params = new URLSearchParams(props.location.search);
+
     this.state = {
       rates: null,
       symbolFrom: 'USD',
@@ -43,6 +47,10 @@ class CurrencyConverter extends React.Component {
     this.handleChangeFromCurrency = this.handleChangeFromCurrency.bind(this);
     this.handleChangeToCurrency = this.handleChangeToCurrency.bind(this);
     this.handleCurrencySwitch = this.handleCurrencySwitch.bind(this);
+    this.getHistoricalRates = this.getHistoricalRates.bind(this);
+    this.buildChart = this.buildChart.bind(this);
+
+    this.chartRef = React.createRef();
   }
 
   handleChangeAmount(event) {
@@ -60,6 +68,7 @@ class CurrencyConverter extends React.Component {
       this.setState({ rates: data, error: '' });
       console.log(data.rates[this.state.symbolTo]);
       this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
+      this.getHistoricalRates(event.target.value, this.state.symbolTo);
     })
     .catch((error) => {
       this.setState({ error: error.message });
@@ -77,6 +86,7 @@ class CurrencyConverter extends React.Component {
       this.setState({ rates: data, error: '' });
       console.log(data.rates[this.state.symbolTo]);
       this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
+      this.getHistoricalRates(this.state.symbolFrom, event.target.value);
     })
     .catch((error) => {
       this.setState({ error: error.message });
@@ -97,6 +107,7 @@ class CurrencyConverter extends React.Component {
       this.setState({ rates: data, error: '' });
       console.log(data.rates[this.state.symbolTo]);
       this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
+      this.getHistoricalRates(to, from);
     })
     .catch((error) => {
       this.setState({ error: error.message });
@@ -115,11 +126,58 @@ class CurrencyConverter extends React.Component {
       this.setState({ rates: data, error: '' });
       console.log(data.rates[this.state.symbolTo]);
       this.setState({ rateTo: data.rates[this.state.symbolTo], error: '' });
+
+      this.getHistoricalRates(this.state.symbolFrom, this.state.symbolTo);
     })
     .catch((error) => {
       this.setState({ error: error.message });
       console.log(error);
     });
+  }
+
+  //Start of chart additions
+  getHistoricalRates = (base, quote) => {
+    const endDate = new Date().toISOString().split('T')[0];
+    const startDate = new Date((new Date).getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
+    fetch(`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${quote}`)
+      .then(checkStatus)
+      .then(json)
+      .then(data => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        const chartLabels = Object.keys(data.rates);
+        const chartData = Object.values(data.rates).map(rate => rate[quote]);
+        const chartLabel = `${base}/${quote}`;
+        this.buildChart(chartLabels, chartData, chartLabel);
+      })
+      .catch(error => console.error(error.message));
+  }
+
+
+
+  buildChart = (labels, data, label) => {
+    const chartRef = this.chartRef.current.getContext("2d");
+    if (typeof this.chart !== "undefined") {
+      this.chart.destroy();
+    }
+    this.chart = new Chart(this.chartRef.current.getContext("2d"), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: label,
+            data,
+            fill: false,
+            tension: 0,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+      }
+    })
   }
 
 
@@ -173,7 +231,11 @@ class CurrencyConverter extends React.Component {
           <div class="col-12 pb-5" id="currency-col-xs">
             <ConvertedAmount convertedAmount={conversion(this.state.amount, this.state.rateTo)}/>
           </div>
+          <div class="col-12 pb-3 mb-5 py-sm-5 my-sm-5">
+            <canvas ref={this.chartRef} />
+          </div>
         </div>
+
       </div>
     </div>
     )
